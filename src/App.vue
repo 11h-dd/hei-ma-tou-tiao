@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <van-button type="primary">主要按钮</van-button>
-    <van-button type="info">信息按钮</van-button>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,10 +8,13 @@
 export default {
   name: "App",
   components: {},
+  created () {
+  
+  }
 };
 </script>
 
-<style >
+<style lang="less" secoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
