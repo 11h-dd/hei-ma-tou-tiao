@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" id="Login">
     <van-nav-bar title="黑马头条 - 登录" fixed />
     <!-- 登录的表单 -->
     <van-form @submit="login">
@@ -14,7 +14,7 @@
       </van-field>
       <van-field
         type="password"
-        v-model="form.code"
+        v-model="form.password"
         label="登录密码"
         placeholder="请输入登录密码"
         required
@@ -27,6 +27,7 @@
         >
       </div>
     </van-form>
+ 
   </div>
 </template>
 <script>
@@ -40,7 +41,7 @@ export default {
         // 用户的手机号
         mobile: "",
         // 登录的密码
-        code: "",
+        password: "",
       },
       // 表单的校验规则对象
       rules: {
