@@ -14,7 +14,7 @@
       </van-field>
       <van-field
         type="password"
-        v-model="form.password"
+        v-model="form.code"
         label="登录密码"
         placeholder="请输入登录密码"
         required
@@ -27,11 +27,11 @@
         >
       </div>
     </van-form>
- 
   </div>
 </template>
 <script>
-import { loginAPI } from '@/api/userApi'
+import { loginAPI } from "@/api/userApi";
+import { mapMutations } from 'vuex'
 export default {
   name: "Login",
   data() {
@@ -41,14 +41,18 @@ export default {
         // 用户的手机号
         mobile: "",
         // 登录的密码
-        password: "",
+        code: "",
       },
       // 表单的校验规则对象
       rules: {
         // 手机号的校验规则
         mobile: [
           { required: true, message: "请填写您的手机号", trigger: "onBlur" },
-           { pattern: /^1\d{10}$/, message: '请填写正确的手机号', trigger: 'onBlur' }
+          {
+            pattern: /^1\d{10}$/,
+            message: "请填写正确的手机号",
+            trigger: "onBlur",
+          },
         ],
         // 密码的校验规则
         code: [
@@ -58,12 +62,19 @@ export default {
     };
   },
   methods: {
-   async login() {
+    ...mapMutations('he',['undateTokenInfo']),
+    async login() {
       // 只有当表单数据校验通过之后，才会调用此 login 函数
       console.log("ok");
+
       // TODO：调用 API 接口，发起登录的请求
-      const res = await loginAPI(this.form)
-      console.log(res)
+      const { data: res } = await loginAPI(this.form);
+      if (res.message === "OK") {
+        console.log(res.data);
+        this.undateTokenInfo(res.data)
+      }
+
+      // console.log(res);
     },
   },
 };
