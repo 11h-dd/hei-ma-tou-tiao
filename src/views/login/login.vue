@@ -65,18 +65,19 @@ export default {
     ...mapMutations('he',['undateTokenInfo']),
     async login() {
       // 只有当表单数据校验通过之后，才会调用此 login 函数
-      console.log("ok");
 
       // TODO：调用 API 接口，发起登录的请求
       const { data: res } = await loginAPI(this.form);
       if (res.message === "OK") {
         console.log(res.data);
         this.undateTokenInfo(res.data)
+          // this.$router.push('/')
       }
 
       // console.log(res);
     },
   },
+
 };
 </script>
 

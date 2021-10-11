@@ -6,6 +6,7 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import 'amfe-flexible'
  import '@/index.less'
+//  import initState from './store/hei'
 
 Vue.use(Vant)
 //关掉控制台中的 '请使用production版本的vue提示'
