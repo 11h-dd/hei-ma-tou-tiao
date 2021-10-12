@@ -6,7 +6,7 @@ let initState = {
 }
 const stateste = window.localStorage.getItem('state')
 if (stateste) {
-    initState.tokenInfo = JSON.parse(stateste).tokenInfo    
+    initState.tokenInfo = JSON.parse(stateste)  
 }
 export default {
     namespaced: true,
@@ -16,7 +16,7 @@ export default {
     mutations: {
         undateTokenInfo(state, py) {
             state.tokenInfo = py
-            this.commit('he/saveStateToStorage')
+            this.commit('saveStateToStorage')
             console.log(state.tokenInfo)
         },
         saveStateToStorage(state) {

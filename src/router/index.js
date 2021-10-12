@@ -9,7 +9,9 @@ const routes = [{ path: '/login', component: () => import('@/views/login/login.v
 // 主页的路由规则
 { path: '/', component: Main,children:[
     { path: '', component: home, name: 'home' },
-    { path: '/user', component: user, name: 'user'}
+    { path: '/user', component: user, name: 'user',children:[
+       { path:'/user',component:()=>import('../views/login/login.vue')}
+    ]}
 ] }]
 
 export default new VueRouter({

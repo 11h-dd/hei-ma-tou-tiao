@@ -71,7 +71,7 @@ export default {
       if (res.message === "OK") {
         console.log(res.data);
         this.undateTokenInfo(res.data)
-          // this.$router.push('/')
+          this.$router.push('/')
       }
 
       // console.log(res);
