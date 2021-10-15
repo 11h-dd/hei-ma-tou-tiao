@@ -5,6 +5,7 @@ let initState = {
     }
 }
 const stateste = window.localStorage.getItem('state')
+console.log(stateste)
 if (stateste) {
     initState.tokenInfo = JSON.parse(stateste)  
 }

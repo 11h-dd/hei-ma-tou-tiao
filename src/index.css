@@ -5,3 +5,6 @@
   color: white;
   font-size: 16px;
 }
+.van-tabs__wrap .van-tabs__line {
+  background-color: #007bff;
+}
