@@ -36,6 +36,7 @@
           <van-icon name="cross" @click="show = true" />
           <!-- <vant-cell></vant-cell> -->
           <van-action-sheet
+            get-container="body"
             v-model="show"
             @select="onSelect"
             cancel-text="取消"
@@ -61,7 +62,7 @@
                 :title="item.label"
                 :key="item.type"
                 clickable
-                @click="isFirst = true"
+                @click="reportArticle(item.type)"
               />
               <van-cell title="返回" clickable @click="isFirst = true" />
             </div>
@@ -74,6 +75,7 @@
 
 <script>
 import reports from "@/api/reports.js";
+import { dislikeArticleAPI, reportArticleAPI } from "@/api/hoemAPI.js";
 export default {
   name: "ArtItem",
   props: {
@@ -98,9 +100,16 @@ export default {
     onSelect() {
       this.show = false;
     },
-    onCellClick(name) {
+    async onCellClick(name) {
       console.log(name);
       if (name == "不感兴趣") {
+        const { data: res } = await dislikeArticleAPI(this.article.art_id);
+        console.log(res);
+        
+        if (res.message === "OK") {
+          // TODO：炸楼的操作，触发自定义的事件，将文章 id 发送给父组件
+          this.$emit("remove-article", this.article.art_id);
+        }
         this.show = false;
       }
       if (name == "反馈垃圾内容") {
@@ -110,6 +119,17 @@ export default {
       if (name == "拉黑作者") {
         this.show = false;
       }
+    },
+    async reportArticle(type) {
+      // 1. 发起举报文章的请求
+      const { data: res } = await reportArticleAPI(this.article.art_id, type);
+      console.log(res)
+      if (res.message === "OK") {
+        // 2. 炸楼操作，触发自定义事件，把文章 Id 发送给父组件
+        this.$emit("remove-article", this.article.art_id);
+      }
+      // 3. 关闭动作面板
+      this.show = false;
     },
   },
 };

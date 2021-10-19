@@ -7,6 +7,7 @@
       v-for="item in articleList"
       :key="item.art_id"
       :article="item"
+      @remove-article="removeArticle"
     ></ArtItem>
     </van-list>
   </div>
@@ -70,6 +71,9 @@ export default {
         }
       }
     },
+    removeArticle(id){
+      this.articleList = this.articleList.filter(item => item.art_id != id)
+    }
   },
   created() {
     this.initcleList();
