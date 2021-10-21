@@ -73,6 +73,10 @@ export default {
     },
     removeArticle(id){
       this.articleList = this.articleList.filter(item => item.art_id != id)
+        if (this.articleList.length < 10) {
+      // 主动请求下一页的数据
+      this.initcleList()
+    }
     }
   },
   created() {

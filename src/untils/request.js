@@ -1,23 +1,26 @@
 import axios from 'axios'
 import { Toast } from 'vant'
 import store from '../store/hei'
+import router from '../router'
+import stores from '../store/index'
 
 
- const instance =  axios.create({
-    // 请求根路径
-    baseURL: 'http://www.liulongbin.top:8000'
-  })
-  export default instance
-  // 调用 axios.create() 方法，创建 axios 的实例对象
-  instance.interceptors.request.use(
+const instance = axios.create({
+  // 请求根路径
+  baseURL: 'http://geek.itheima.net'
+})
+export default instance
+// 调用 axios.create() 方法，创建 axios 的实例对象
+instance.interceptors.request.use(
   config => {
     // 展示 loading 效果
     Toast.loading({
       message: '加载中...', // 文本内容
-      forbidClick:true,
+      forbidClick: true,
       duration: 0 // 展示时长(ms)，值为 0 时，toast 不会消失
     })
     const tokenStr = store.state.tokenInfo.token
+    console.log(stores.state.he.tokenInfo)
     console.log(tokenStr)
     if (tokenStr) {
       // 只有 tokenStr 的值存在，才有必要挂载到请求头的 Authorization 属性中
@@ -31,15 +34,20 @@ import store from '../store/hei'
 )
 // 添加响应拦截器
 instance.interceptors.response.use(
-  function(response) {
+  function (response) {
     // 对响应数据做点什么 
     Toast.clear()
     return response
   },
-  function(error) {
+  function (error) {
+    if (error.response && error.response.status === 401) {
+       stores.commit('he/cleanState')
+        router.push('/login')
+    }    
+    Toast.clear()
     // 对响应错误做点什么
     return Promise.reject(error)
   }
 )
 
-  
+

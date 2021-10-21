@@ -105,7 +105,7 @@ export default {
       if (name == "不感兴趣") {
         const { data: res } = await dislikeArticleAPI(this.article.art_id);
         console.log(res);
-        
+
         if (res.message === "OK") {
           // TODO：炸楼的操作，触发自定义的事件，将文章 id 发送给父组件
           this.$emit("remove-article", this.article.art_id);
@@ -123,7 +123,7 @@ export default {
     async reportArticle(type) {
       // 1. 发起举报文章的请求
       const { data: res } = await reportArticleAPI(this.article.art_id, type);
-      console.log(res)
+      console.log(res);
       if (res.message === "OK") {
         // 2. 炸楼操作，触发自定义事件，把文章 Id 发送给父组件
         this.$emit("remove-article", this.article.art_id);
