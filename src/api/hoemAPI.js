@@ -29,3 +29,9 @@ export const reportArticleAPI = (target,type) => request({
     type
   }
 })
+
+//全部频道列表
+export const getAllChannelAPI = () => request({
+  method:'get',
+  url:'/v1_0/channels'
+})
