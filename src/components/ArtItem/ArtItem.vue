@@ -108,6 +108,7 @@ export default {
 
         if (res.message === "OK") {
           // TODO：炸楼的操作，触发自定义的事件，将文章 id 发送给父组件
+          //我就是勇敢字符
           this.$emit("remove-article", this.article.art_id);
         }
         this.show = false;
